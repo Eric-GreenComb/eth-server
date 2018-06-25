@@ -2,6 +2,7 @@ package ethereum
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"math/big"
 	"net/http"
@@ -95,9 +96,24 @@ func suggestGasPrice() {
 	SetGasPrice(gasPrice)
 }
 
-// FloatToBigInt 传入值和精度, 对于以太来说是返回amount Wei
-func FloatToBigInt(val float64, decimals int) *big.Int {
+// FloatToWei 传入值和精度, 对于以太来说是返回amount Wei
+func FloatToWei(val float64, decimals int) *big.Int {
 	v1 := decimal.NewFromFloat(val)
+	v2 := decimal.New(1, int32(decimals))
+	v3 := v1.Mul(v2)
+	// ToDo error ?
+	result, _bool := new(big.Int).SetString(v3.String(), 10)
+	if !_bool {
+		fmt.Println("error")
+	}
+	fmt.Println(result)
+	glog.V(7).Infoln("Sending Wei is", result)
+	return result
+}
+
+// StringToWei 传入值和精度, 对于以太来说是返回amount Wei
+func StringToWei(val string, decimals int) *big.Int {
+	v1, _ := decimal.NewFromString(val)
 	v2 := decimal.New(1, int32(decimals))
 	v3 := v1.Mul(v2)
 	result, _ := new(big.Int).SetString(v3.String(), 10)

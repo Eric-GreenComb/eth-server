@@ -80,8 +80,6 @@ func SendEthTokens(address, to string, nonce uint64, amount *big.Int, priv *ecds
 
 	gasPrice := GasPrice()
 
-	fmt.Println(gasPrice)
-
 	tx := types.NewTransaction(nonce, ethcommon.HexToAddress(address), nil, gasDefaultLimit, gasPrice, data)
 
 	var signed *types.Transaction

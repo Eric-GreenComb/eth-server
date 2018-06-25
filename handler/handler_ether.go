@@ -51,12 +51,12 @@ func TransferErc20(c *gin.Context) {
 	_from := _formParams.From
 	_to := _formParams.To
 	_amount := _formParams.Amount
+	_decimals := _formParams.Decimals
 	_pwd := _formParams.Pwd
 
-	_int64, err := strconv.ParseInt(_amount, 10, 64)
+	_int, err := strconv.Atoi(_decimals)
 	if err != nil {
-		c.String(200, err.Error())
-		return
+		c.JSON(http.StatusOK, gin.H{"errcode": 2, "msg": err.Error()})
 	}
 
 	_value, err := badger.NewRead().Get(_from)
@@ -78,9 +78,8 @@ func TransferErc20(c *gin.Context) {
 	defer _client.Close()
 	ts, _ := cc.NewHumanStandardTokenTransactor(common.HexToAddress(_conaddr), _client)
 
-	_bigint := big.NewInt(_int64)
-
-	_tx, err := ts.Transfer(txOpt, common.HexToAddress(_to), _bigint)
+	_amountBigInt := ethereum.StringToWei(_amount, _int)
+	_tx, err := ts.Transfer(txOpt, common.HexToAddress(_to), _amountBigInt)
 	if err != nil {
 		c.String(http.StatusOK, err.Error())
 		return
@@ -100,16 +99,16 @@ func RawTransferErc20(c *gin.Context) {
 	_to := _formParams.To
 	_amount := _formParams.Amount
 	_pwd := _formParams.Pwd
+	_decimals := _formParams.Decimals
 
-	_int64, err := strconv.ParseInt(_amount, 10, 64)
+	_int, err := strconv.Atoi(_decimals)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
-		return
+		c.JSON(http.StatusOK, gin.H{"errcode": 2, "msg": err.Error()})
 	}
 
 	_value, err := badger.NewRead().Get(_from)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return
 	}
 
@@ -117,25 +116,62 @@ func RawTransferErc20(c *gin.Context) {
 	_keystore = strings.Replace(string(_value), "\\\"", "\"", -1)
 	_key, err := keystore.DecryptKey([]byte(_keystore), _pwd)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return
 	}
 
-	_amountBigInt := big.NewInt(_int64)
+	_amountBigInt := ethereum.StringToWei(_amount, _int)
 	_chainIDBigInt := big.NewInt(config.EthereumConfig.ChainID)
 
 	_nonce, err := ethereum.PendingNonce(_from)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return
 	}
 
 	_txid, err := ethereum.SendEthTokens(_conaddr, _to, _nonce, _amountBigInt, _key.PrivateKey, _chainIDBigInt)
 
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"errcode": 0, "txid": _txid})
+	c.JSON(http.StatusOK, gin.H{"errcode": 0, "msg": _txid})
+}
+
+// StringToWei StringToWei
+func StringToWei(c *gin.Context) {
+
+	_val := c.Params.ByName("val")
+	_decimals := c.Params.ByName("decimals")
+
+	_int, err := strconv.Atoi(_decimals)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
+	}
+
+	_wei := ethereum.StringToWei(_val, _int)
+
+	c.JSON(http.StatusOK, gin.H{"errcode": 0, "msg": _wei.String()})
+}
+
+// FloatToWei FloatToWei
+func FloatToWei(c *gin.Context) {
+
+	_val := c.Params.ByName("val")
+	_decimals := c.Params.ByName("decimals")
+
+	_float64, err := strconv.ParseFloat(_val, 64)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
+	}
+
+	_int, err := strconv.Atoi(_decimals)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 2, "msg": err.Error()})
+	}
+
+	_wei := ethereum.FloatToWei(_float64, _int)
+
+	c.JSON(http.StatusOK, gin.H{"errcode": 0, "msg": _wei})
 }

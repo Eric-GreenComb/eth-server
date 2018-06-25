@@ -52,6 +52,9 @@ func main() {
 		r2.GET("/balance/:conaddr/:addr", handler.GetBalance)
 
 		r2.POST("/rawtransfer", handler.RawTransferErc20)
+
+		r2.GET("/wei/string/:val/:decimals", handler.StringToWei)
+		r2.GET("/wei/float/:val/:decimals", handler.FloatToWei)
 	}
 
 	r3 := router.Group("/badger")
