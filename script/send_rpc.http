@@ -148,7 +148,7 @@ Content-Type: application/json
 {
     "jsonrpc":"2.0",
     "method":"eth_getBalance",
-    "params":["0x762009cd5dcabb5a125008d70f5efdbdff2aa782","latest"],
+    "params":["0xA0B66c847880FF3EA8280463e816Da0713015667","latest"],
     "id":67
 }
 

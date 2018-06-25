@@ -6,6 +6,19 @@ Content-Type: application/json
 {
 }
 
+###DeployErc20 /erc20/deploy
+POST http://localhost:8080/erc20/deploy
+Content-Type: application/json
+
+{
+    "name":"ERC",
+    "symbol":"ERC",
+    "total":"1000000000",
+    "decimals":"18",    
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111"
+}
+
 ###TransferErc20 /erc20/transfer
 POST http://localhost:8080/erc20/transfer
 Content-Type: application/json
@@ -24,7 +37,7 @@ POST http://localhost:8080/erc20/rawtransfer
 Content-Type: application/json
 
 {
-    "address":"0x22efc4515a218133b0a31fb6af07deddc7182923",
+    "address":"0x08445242c84e7750934bac06f33c577979f4d877",
     "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
     "to":"0xA0B66c847880FF3EA8280463e816Da0713015667",
     "amount":"2000",
@@ -33,7 +46,7 @@ Content-Type: application/json
 }
 
 ###GetBalance /erc20/balance/:conaddr/:addr
-GET http://localhost:8080/erc20/balance/0x22efc4515a218133b0a31fb6af07deddc7182923/0xA0B66c847880FF3EA8280463e816Da0713015667
+GET http://localhost:8080/erc20/balance/0xcc58230fff8dd9e404524a81086a67f3deabbc0f/0x762009cd5dcabb5a125008d70f5efdbdff2aa782
 Content-Type: application/json
 
 {

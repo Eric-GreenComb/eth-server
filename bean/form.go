@@ -14,4 +14,8 @@ type FormParams struct {
 	Amount   string `form:"amount" json:"amount"`     //
 	Decimals string `form:"decimals" json:"decimals"` //
 	Pwd      string `form:"pwd" json:"pwd"`           //
+	Name     string `form:"name" json:"name"`         //
+	Symbol   string `form:"symbol" json:"symbol"`     //
+	Total    string `form:"total" json:"total"`       //
+	Desc     string `form:"desc" json:"desc"`         //
 }

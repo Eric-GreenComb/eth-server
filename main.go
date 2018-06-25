@@ -48,6 +48,7 @@ func main() {
 
 	r2 := router.Group("/erc20")
 	{
+		r2.POST("/deploy", handler.DeployErc20)
 		r2.POST("/transfer", handler.TransferErc20)
 		r2.GET("/balance/:conaddr/:addr", handler.GetBalance)
 

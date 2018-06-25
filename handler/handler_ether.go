@@ -19,26 +19,52 @@ import (
 	"github.com/Eric-GreenComb/eth-server/ethereum"
 )
 
-// GetBalance GetBalance
-func GetBalance(c *gin.Context) {
+// DeployErc20 DeployErc20
+func DeployErc20(c *gin.Context) {
 
-	_conaddr := c.Params.ByName("conaddr")
-	_addr := c.Params.ByName("addr")
+	var _formParams bean.FormParams
+	c.BindJSON(&_formParams)
+
+	_name := _formParams.Name
+	_symbol := _formParams.Symbol
+	_total := _formParams.Total
+	_decimals := _formParams.Decimals
+
+	_from := _formParams.From
+	_pwd := _formParams.Pwd
+
+	_int, err := strconv.Atoi(_decimals)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 2, "msg": err.Error()})
+	}
+
+	_value, err := badger.NewRead().Get(_from)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
+		return
+	}
+
+	var _keystore string
+	_keystore = strings.Replace(string(_value), "\\\"", "\"", -1)
+
+	txOpt, err := bind.NewTransactor(strings.NewReader(_keystore), _pwd)
+	if err != nil {
+		c.String(http.StatusOK, err.Error())
+		return
+	}
 
 	_client := ethclient.NewClient(ethereum.Clients.Eth)
 	defer _client.Close()
 
-	_caller, err := cc.NewHumanStandardTokenCaller(common.HexToAddress(_conaddr), _client)
+	_totalBigInt := ethereum.StringToWei(_total, _int)
+
+	_tokenAddress, _tx, _, err := cc.DeployHumanStandardToken(txOpt, _client, _totalBigInt, _name, uint8(_int), _symbol)
 	if err != nil {
-		c.String(http.StatusOK, err.Error())
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return
 	}
-	_bigint, err := _caller.BalanceOf(&bind.CallOpts{Pending: true}, common.HexToAddress(_addr))
-	if err != nil {
-		c.String(http.StatusOK, err.Error())
-		return
-	}
-	c.JSON(http.StatusOK, _bigint.String())
+
+	c.JSON(http.StatusOK, gin.H{"errcode": 0, "address": _tokenAddress, "tx": _tx})
 }
 
 // TransferErc20 TransferErc20
@@ -137,6 +163,28 @@ func RawTransferErc20(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"errcode": 0, "msg": _txid})
+}
+
+// GetBalance GetBalance
+func GetBalance(c *gin.Context) {
+
+	_conaddr := c.Params.ByName("conaddr")
+	_addr := c.Params.ByName("addr")
+
+	_client := ethclient.NewClient(ethereum.Clients.Eth)
+	defer _client.Close()
+
+	_caller, err := cc.NewHumanStandardTokenCaller(common.HexToAddress(_conaddr), _client)
+	if err != nil {
+		c.String(http.StatusOK, err.Error())
+		return
+	}
+	_bigint, err := _caller.BalanceOf(&bind.CallOpts{Pending: true}, common.HexToAddress(_addr))
+	if err != nil {
+		c.String(http.StatusOK, err.Error())
+		return
+	}
+	c.JSON(http.StatusOK, _bigint.String())
 }
 
 // StringToWei StringToWei
