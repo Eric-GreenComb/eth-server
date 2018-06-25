@@ -10,6 +10,7 @@ type ServerConfig struct {
 
 // EthereumConfig EthereumConfig
 type EthereumConfig struct {
+	ChainID    int64
 	Host       string
 	Passphrase string
 }

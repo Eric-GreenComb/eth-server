@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,14 +9,18 @@ import (
 	"github.com/Eric-GreenComb/eth-server/ethereum"
 )
 
-// GetNonceAt GetNonceAt
-func GetNonceAt(c *gin.Context) {
+// PendingNonce PendingNonce
+func PendingNonce(c *gin.Context) {
 
 	var _formParams bean.FormParams
 	c.BindJSON(&_formParams)
 
-	fmt.Println(_formParams.Params)
+	_nonce, err := ethereum.PendingNonce(_formParams.Params)
 
-	c.JSON(http.StatusOK, gin.H{"errcode": 0, "msg": ethereum.GetNonceAt(_formParams.Params)})
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
+		return
+	}
 
+	c.JSON(http.StatusOK, gin.H{"errcode": 0, "msg": _nonce})
 }

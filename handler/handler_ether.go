@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/gin-gonic/gin"
@@ -77,11 +78,63 @@ func TransferErc20(c *gin.Context) {
 	ts, _ := cc.NewHumanStandardTokenTransactor(common.HexToAddress(_conaddr), _client)
 
 	_bigint := big.NewInt(_int64)
-	_, err = ts.Transfer(txOpt, common.HexToAddress(_to), _bigint)
+
+	_tx, err := ts.Transfer(txOpt, common.HexToAddress(_to), _bigint)
 	if err != nil {
 		c.String(http.StatusOK, err.Error())
 		return
 	}
 
-	c.String(200, "OK")
+	c.JSON(http.StatusOK, gin.H{"errcode": 0, "errinfo": _tx})
+}
+
+// RawTransferErc20 RawTransferErc20
+func RawTransferErc20(c *gin.Context) {
+
+	var _formParams bean.FormParams
+	c.BindJSON(&_formParams)
+
+	_conaddr := _formParams.Address
+	_from := _formParams.From
+	_to := _formParams.To
+	_amount := _formParams.Amount
+	_pwd := _formParams.Pwd
+
+	_int64, err := strconv.ParseInt(_amount, 10, 64)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
+		return
+	}
+
+	_value, err := badger.NewRead().Get(_from)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
+		return
+	}
+
+	var _keystore string
+	_keystore = strings.Replace(string(_value), "\\\"", "\"", -1)
+	_key, err := keystore.DecryptKey([]byte(_keystore), _pwd)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
+		return
+	}
+
+	_amountBigInt := big.NewInt(_int64)
+	// _chainIDBigInt := big.NewInt(config.EthereumConfig.ChainID)
+
+	_nonce, err := ethereum.PendingNonce(_from)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
+		return
+	}
+
+	_txid, err := ethereum.SendEthTokens(_conaddr, _to, _nonce, _amountBigInt, _key.PrivateKey, nil)
+
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"errcode": 0, "txid": _txid})
 }

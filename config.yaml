@@ -12,6 +12,7 @@ server:
     limit: 10 
   
 ethereum:
+  chainID: 12759
   host: http://localhost:8540
   passphrase: tDydrX7ia8Zx6Vwr  # rand
 

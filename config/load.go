@@ -36,6 +36,7 @@ func initConfig() {
 	ServerConfig.GormLogMode = viper.GetString("server.gorm.LogMode")
 	ServerConfig.ViewLimit = viper.GetInt("server.view.limit")
 
+	EthereumConfig.ChainID = viper.GetInt64("ethereum.chainID")
 	EthereumConfig.Host = viper.GetString("ethereum.host")
 	EthereumConfig.Passphrase = viper.GetString("ethereum.passphrase")
 

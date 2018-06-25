@@ -14,7 +14,19 @@ Content-Type: application/json
     "address":"0xc613cdb2d9b82785b6a3ddd3227117923ac2f129",
     "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
     "to":"0x571ac5c2fb70d8553b593b1efb4a2524e01bb3e6",
-    "amount":"10250",
+    "amount":"1000",
+    "pwd":"a11111"
+}
+
+###RawTransferErc20 /erc20/rawtransfer
+POST http://localhost:8080/erc20/rawtransfer
+Content-Type: application/json
+
+{
+    "address":"0xc613cdb2d9b82785b6a3ddd3227117923ac2f129",
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "to":"0x571ac5c2fb70d8553b593b1efb4a2524e01bb3e6",
+    "amount":"2000",
     "pwd":"a11111"
 }
 

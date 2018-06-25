@@ -43,13 +43,15 @@ func main() {
 	// api
 	r1 := router.Group("/ethereum")
 	{
-		r1.GET("/nonce", handler.GetNonceAt)
+		r1.GET("/nonce", handler.PendingNonce)
 	}
 
 	r2 := router.Group("/erc20")
 	{
 		r2.POST("/transfer", handler.TransferErc20)
 		r2.GET("/balance/:conaddr/:addr", handler.GetBalance)
+
+		r2.POST("/rawtransfer", handler.RawTransferErc20)
 	}
 
 	r3 := router.Group("/badger")

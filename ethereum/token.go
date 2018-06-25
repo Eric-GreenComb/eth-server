@@ -1,20 +1,23 @@
 package ethereum
 
 import (
-	// "crypto/ecdsa"
+	"crypto/ecdsa"
 	"errors"
 	"fmt"
 	"math/big"
 	"strings"
 
 	ethcommon "github.com/ethereum/go-ethereum/common"
-	// "github.com/ethereum/go-ethereum/core/types"
-	// "github.com/ethereum/go-ethereum/crypto"
-	// "github.com/ethereum/go-ethereum/rlp"
+	"github.com/ethereum/go-ethereum/core/types"
+	"github.com/ethereum/go-ethereum/rlp"
 )
 
 const transferAbi string = "0xa9059cbb"
 const lenTransferInput int = 138
+
+var (
+	gasDefaultLimit uint64 = 90000
+)
 
 // ToHexInt ToHexInt
 func ToHexInt(n *big.Int) string {
@@ -59,40 +62,47 @@ func GenTransferCode(toAddress string, amount *big.Int) ([]byte, error) {
 	if !ok {
 		return nil, errors.New("param was too long")
 	}
+
 	data := ethcommon.FromHex(dataStr)
 
 	return data, nil
 }
 
 // SendEthTokens SendEthTokens
-// func SendEthTokens(tokenAddress, from, to string, amount *big.Int, prv *ecdsa.PrivateKey, chainID *big.Int) (string, error) {
-// 	client := Clients.Eth
-// 	var err error
+func SendEthTokens(address, to string, nonce uint64, amount *big.Int, priv *ecdsa.PrivateKey, chainID *big.Int) (string, error) {
+	client := Clients.Eth
+	var err error
 
-// 	data, err := GenTransferCode(to, amount)
-// 	if err != nil {
-// 		return "", err
-// 	}
+	data, err := GenTransferCode(to, amount)
+	if err != nil {
+		return "", err
+	}
 
-// 	nonce := GetNonceAt(from)
-// 	gasPrice := GasPrice()
+	gasPrice := GasPrice()
 
-// 	tx := types.NewTransaction(nonce, ethcommon.HexToAddress(token.Address), nil, gasDefaultLimit, gasPrice, data)
-// 	key, _ := crypto.HexToECDSA(private)
-// 	signed, _ := types.SignTx(tx, types.NewEIP155Signer(chainID), key)
+	fmt.Println(gasPrice)
 
-// 	txData, err := rlp.EncodeToBytes(signed)
-// 	if err != nil {
-// 		return "", err
-// 	}
+	tx := types.NewTransaction(nonce, ethcommon.HexToAddress(address), nil, gasDefaultLimit, gasPrice, data)
 
-// 	txID := &ethcommon.Hash{}
-// 	err = client.Call(&txID, "eth_sendRawTransaction", ethcommon.ToHex(txData))
-// 	if err != nil {
-// 		return "", err
-// 	}
+	var signed *types.Transaction
+	if chainID != nil {
+		signed, _ = types.SignTx(tx, types.NewEIP155Signer(chainID), priv)
+	} else {
+		signed, _ = types.SignTx(tx, types.HomesteadSigner{}, priv)
+	}
 
-// 	txid := txID.String()
+	txData, err := rlp.EncodeToBytes(signed)
+	if err != nil {
+		return "", err
+	}
 
-// 	return txid, nil
-// }
+	txID := &ethcommon.Hash{}
+	err = client.Call(&txID, "eth_sendRawTransaction", ethcommon.ToHex(txData))
+	if err != nil {
+		return "", err
+	}
+
+	txid := txID.String()
+
+	return txid, nil
+}
