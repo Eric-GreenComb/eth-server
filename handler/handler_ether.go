@@ -15,6 +15,7 @@ import (
 	"github.com/Eric-GreenComb/eth-server/badger"
 	"github.com/Eric-GreenComb/eth-server/bean"
 	"github.com/Eric-GreenComb/eth-server/cc"
+	"github.com/Eric-GreenComb/eth-server/config"
 	"github.com/Eric-GreenComb/eth-server/ethereum"
 )
 
@@ -121,7 +122,7 @@ func RawTransferErc20(c *gin.Context) {
 	}
 
 	_amountBigInt := big.NewInt(_int64)
-	// _chainIDBigInt := big.NewInt(config.EthereumConfig.ChainID)
+	_chainIDBigInt := big.NewInt(config.EthereumConfig.ChainID)
 
 	_nonce, err := ethereum.PendingNonce(_from)
 	if err != nil {
@@ -129,7 +130,7 @@ func RawTransferErc20(c *gin.Context) {
 		return
 	}
 
-	_txid, err := ethereum.SendEthTokens(_conaddr, _to, _nonce, _amountBigInt, _key.PrivateKey, nil)
+	_txid, err := ethereum.SendEthTokens(_conaddr, _to, _nonce, _amountBigInt, _key.PrivateKey, _chainIDBigInt)
 
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"errcode": 1, "errinfo": err.Error()})
