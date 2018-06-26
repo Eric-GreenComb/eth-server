@@ -44,18 +44,20 @@ func main() {
 	r1 := router.Group("/ethereum")
 	{
 		r1.GET("/nonce", handler.PendingNonce)
+
+		r1.POST("/send", handler.SendEthCoin)
+		r1.GET("/balance/:addr", handler.GetBalance)
+
+		r1.GET("/wei/string/:val/:decimals", handler.StringToWei)
 	}
 
 	r2 := router.Group("/erc20")
 	{
 		r2.POST("/deploy", handler.DeployErc20)
 		r2.POST("/transfer", handler.TransferErc20)
-		r2.GET("/balance/:conaddr/:addr", handler.GetBalance)
+		r2.GET("/balance/:conaddr/:addr", handler.GetErc20Balance)
 
 		r2.POST("/rawtransfer", handler.RawTransferErc20)
-
-		r2.GET("/wei/string/:val/:decimals", handler.StringToWei)
-		r2.GET("/wei/float/:val/:decimals", handler.FloatToWei)
 	}
 
 	r3 := router.Group("/badger")

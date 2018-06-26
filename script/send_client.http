@@ -6,6 +6,25 @@ Content-Type: application/json
 {
 }
 
+###SendEthCoin /ethereum/send
+POST http://localhost:8080/ethereum/send
+Content-Type: application/json
+
+{
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "to":"0x571ac5c2fb70d8553b593b1efb4a2524e01bb3e6",
+    "amount":"10.5",
+    "decimals":"18",
+    "pwd":"a11111"
+}
+
+###GetBalance /ethereum/balance/:addr
+GET http://localhost:8080/ethereum/balance/0x762009cd5dcabb5a125008d70f5efdbdff2aa782
+Content-Type: application/json
+
+{
+}
+
 ###DeployErc20 /erc20/deploy
 POST http://localhost:8080/erc20/deploy
 Content-Type: application/json
@@ -45,7 +64,7 @@ Content-Type: application/json
     "pwd":"a11111"
 }
 
-###GetBalance /erc20/balance/:conaddr/:addr
+###GetErc20Balance /erc20/balance/:conaddr/:addr
 GET http://localhost:8080/erc20/balance/0xcc58230fff8dd9e404524a81086a67f3deabbc0f/0x762009cd5dcabb5a125008d70f5efdbdff2aa782
 Content-Type: application/json
 
@@ -53,7 +72,7 @@ Content-Type: application/json
 }
 
 ###StringToWei /wei/string/:val/:decimals
-GET http://localhost:8080/erc20/wei/string/1000.1234/18
+GET http://localhost:8080/ethereum/wei/string/1000.1234/18
 Content-Type: application/json
 
 {
