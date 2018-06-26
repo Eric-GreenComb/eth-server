@@ -60,11 +60,20 @@ func main() {
 		r2.POST("/rawtransfer", handler.RawTransferErc20)
 	}
 
-	r3 := router.Group("/badger")
+	r3 := router.Group("/obj")
 	{
-		r3.POST("/set", handler.SetBadgerKey)
-		r3.POST("/setwithttl", handler.SetBadgerKeyTTL)
-		r3.GET("/get/:key", handler.GetBadgerKey)
+		r3.POST("/deploy", handler.DeployObj)
+		r3.POST("/set", handler.ModifyObjValue)
+		r3.GET("/get/:address", handler.GetObjValue)
+
+		r3.POST("/rawset", handler.RawModifyObjValue)
+	}
+
+	r100 := router.Group("/badger")
+	{
+		r100.POST("/set", handler.SetBadgerKey)
+		r100.POST("/setwithttl", handler.SetBadgerKeyTTL)
+		r100.GET("/get/:key", handler.GetBadgerKey)
 	}
 
 	for _, _port := range config.ServerConfig.Port {
