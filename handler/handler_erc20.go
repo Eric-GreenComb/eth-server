@@ -1,10 +1,14 @@
 package handler
 
 import (
+	"bytes"
+	"context"
+	"fmt"
 	"math/big"
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/accounts/keystore"
@@ -58,13 +62,34 @@ func DeployErc20(c *gin.Context) {
 
 	_totalBigInt := ethereum.StringToWei(_total, _int)
 
-	_tokenAddress, _tx, _, err := cc.DeployHumanStandardToken(txOpt, _client, _totalBigInt, _name, uint8(_int), _symbol)
+	_tokenAddress, _tx, _token, err := cc.DeployHumanStandardToken(txOpt, _client, _totalBigInt, _name, uint8(_int), _symbol)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"errcode": 0, "address": _tokenAddress, "tx": _tx})
+	fmt.Printf("Contract pending deploy: 0x%x\n", _tokenAddress)
+	fmt.Printf("Transaction waiting to be mined: 0x%x\n\n", _tx.Hash())
+	startTime := time.Now()
+	fmt.Printf("TX start @:%s", startTime)
+	ctx := context.Background()
+	addressAfterMined, err := bind.WaitDeployed(ctx, _client, _tx)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
+		return
+	}
+	fmt.Printf("tx mining take time:%s\n", time.Now().Sub(startTime))
+	if bytes.Compare(_tokenAddress.Bytes(), addressAfterMined.Bytes()) != 0 {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
+		return
+	}
+	name, err := _token.Name(&bind.CallOpts{Pending: true})
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"errcode": 0, "address": _tokenAddress, "name": name, "tx": _tx})
 }
 
 // TransferErc20 TransferErc20
