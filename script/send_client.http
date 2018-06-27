@@ -35,7 +35,8 @@ Content-Type: application/json
     "total":"1000000000",
     "decimals":"18",    
     "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
-    "pwd":"a11111"
+    "pwd":"a11111",
+    "iswait":"true"
 }
 
 ###TransferErc20 /erc20/transfer

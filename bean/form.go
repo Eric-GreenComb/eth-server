@@ -18,4 +18,5 @@ type FormParams struct {
 	Symbol   string `form:"symbol" json:"symbol"`     //
 	Total    string `form:"total" json:"total"`       //
 	Desc     string `form:"desc" json:"desc"`         //
+	IsWait   string `form:"iswait" json:"iswait"`     //
 }

@@ -37,6 +37,10 @@ func DeployErc20(c *gin.Context) {
 	_from := _formParams.From
 	_pwd := _formParams.Pwd
 
+	_iswait := _formParams.IsWait
+
+	startTime := time.Now()
+
 	_int, err := strconv.Atoi(_decimals)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"errcode": 2, "msg": err.Error()})
@@ -68,9 +72,14 @@ func DeployErc20(c *gin.Context) {
 		return
 	}
 
+	if _iswait != "true" {
+		fmt.Printf("tx mining take time:%s\n", time.Now().Sub(startTime))
+		c.JSON(http.StatusOK, gin.H{"errcode": 0, "address": _tokenAddress, "tx": _tx})
+		return
+	}
+
 	fmt.Printf("Contract pending deploy: 0x%x\n", _tokenAddress)
 	fmt.Printf("Transaction waiting to be mined: 0x%x\n\n", _tx.Hash())
-	startTime := time.Now()
 	fmt.Printf("TX start @:%s", startTime)
 	ctx := context.Background()
 	addressAfterMined, err := bind.WaitDeployed(ctx, _client, _tx)
@@ -78,7 +87,7 @@ func DeployErc20(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return
 	}
-	fmt.Printf("tx mining take time:%s\n", time.Now().Sub(startTime))
+
 	if bytes.Compare(_tokenAddress.Bytes(), addressAfterMined.Bytes()) != 0 {
 		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return
@@ -89,6 +98,7 @@ func DeployErc20(c *gin.Context) {
 		return
 	}
 
+	fmt.Printf("tx mining take time:%s\n", time.Now().Sub(startTime))
 	c.JSON(http.StatusOK, gin.H{"errcode": 0, "address": _tokenAddress, "name": name, "tx": _tx})
 }
 
