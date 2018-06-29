@@ -69,6 +69,20 @@ func main() {
 		r3.POST("/rawset", handler.RawModifyObjValue)
 	}
 
+	r4 := router.Group("/tipjar")
+	{
+		r4.POST("/deploy", handler.DeployTipJar)
+		r4.POST("/deposit", handler.DepositTipJar)
+		r4.GET("/balance/:address", handler.GetTipJarBalance)
+	}
+
+	r5 := router.Group("/savings")
+	{
+		r5.POST("/deploy", handler.DeploySavings)
+		r5.POST("/deposit", handler.DepositSavings)
+		r5.POST("/withdraw", handler.WithdrawSavings)
+	}
+
 	r100 := router.Group("/badger")
 	{
 		r100.POST("/set", handler.SetBadgerKey)

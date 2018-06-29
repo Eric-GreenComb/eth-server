@@ -1,0 +1,40 @@
+
+###health
+GET http://127.0.0.1:8080/health
+Content-Type: application/json
+
+{
+}
+
+###DeploySavings
+POST http://127.0.0.1:8080/savings/deploy
+Content-Type: application/json
+
+{
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111",
+    "number":"1"
+}
+
+###DepositSavings
+POST http://127.0.0.1:8080/savings/deposit
+Content-Type: application/json
+
+{
+    "address":"0x7d382d4229eb8aebbfb9858aa32763b472acf81f",
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111",
+    "amount":"20",
+    "decimals":"18",
+    "iswait":"true"
+}
+
+###WithdrawSavings
+POST http://127.0.0.1:8080/savings/withdraw
+Content-Type: application/json
+
+{
+    "address":"0x7d382d4229eb8aebbfb9858aa32763b472acf81f",
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111"
+}

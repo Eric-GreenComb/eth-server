@@ -13,7 +13,7 @@ Content-Type: application/json
 {
     "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
     "to":"0x571ac5c2fb70d8553b593b1efb4a2524e01bb3e6",
-    "amount":"10.5",
+    "amount":"1000",
     "decimals":"18",
     "pwd":"a11111"
 }

@@ -1,0 +1,36 @@
+
+###health
+GET http://127.0.0.1:8080/health
+Content-Type: application/json
+
+{
+}
+
+###DeployObj
+POST http://127.0.0.1:8080/tipjar/deploy
+Content-Type: application/json
+
+{
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111"
+}
+
+###DepositTipJar
+POST http://127.0.0.1:8080/tipjar/deposit
+Content-Type: application/json
+
+{
+    "address":"0xc12b01a3a82fb10980512f45bf14fe53c6cd303d",
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111",
+    "amount":"20",
+    "decimals":"18",
+    "iswait":"true"
+}
+
+###GetTipJarBalance
+GET http://127.0.0.1:8080/tipjar/balance/0xc12b01a3a82fb10980512f45bf14fe53c6cd303d
+Content-Type: application/json
+
+{
+}
