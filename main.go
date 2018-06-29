@@ -83,6 +83,14 @@ func main() {
 		r5.POST("/withdraw", handler.WithdrawSavings)
 	}
 
+	r6 := router.Group("/bank")
+	{
+		r6.POST("/deploy", handler.DeployBank)
+		r6.POST("/deposit", handler.DepositBank)
+		r6.POST("/withdraw", handler.WithdrawBank)
+		r6.GET("/balance/:conaddr/:address", handler.GetBankBalance)
+	}
+
 	r100 := router.Group("/badger")
 	{
 		r100.POST("/set", handler.SetBadgerKey)

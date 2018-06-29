@@ -1,0 +1,47 @@
+
+###health
+GET http://127.0.0.1:8080/health
+Content-Type: application/json
+
+{
+}
+
+###DeployBank
+POST http://127.0.0.1:8080/bank/deploy
+Content-Type: application/json
+
+{
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111"
+}
+
+###DepositBank
+POST http://127.0.0.1:8080/bank/deposit
+Content-Type: application/json
+
+{
+    "address":"0xf61a4043a29567e066aa6f4184e251746a11919e",
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111",
+    "amount":"30",
+    "decimals":"18"
+}
+
+###WithdrawBank
+POST http://127.0.0.1:8080/bank/withdraw
+Content-Type: application/json
+
+{
+    "address":"0xf61a4043a29567e066aa6f4184e251746a11919e",
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111",
+    "amount":"10",
+    "decimals":"18"
+}
+
+###GetBankBalance
+GET http://127.0.0.1:8080/bank/balance/0xf61a4043a29567e066aa6f4184e251746a11919e/0x762009cd5dcabb5a125008d70f5efdbdff2aa782
+Content-Type: application/json
+
+{
+}
