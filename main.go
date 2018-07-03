@@ -91,6 +91,12 @@ func main() {
 		r6.GET("/balance/:conaddr/:address", handler.GetBankBalance)
 	}
 
+	r7 := router.Group("/callobj")
+	{
+		r7.POST("/deploy", handler.DeployCallObj)
+		r7.POST("/set", handler.ModifyCallObjValue)
+	}
+
 	r100 := router.Group("/badger")
 	{
 		r100.POST("/set", handler.SetBadgerKey)
