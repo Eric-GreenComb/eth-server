@@ -55,32 +55,32 @@ func suggestGasPrice() {
 	url := "https://ethgasstation.info/json/ethgasAPI.json"
 
 	gasClient := http.Client{
-		Timeout: time.Second * 8, // Maximum of 8 secs
+		Timeout: time.Second * 20, // Maximum of 8 secs
 	}
 
 	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
-		glog.Fatal(err)
+		glog.Errorln("NewRequest" + err.Error())
 		return
 	}
 
 	res, getErr := gasClient.Do(req)
 	if getErr != nil {
-		glog.Fatal(getErr)
+		glog.Errorln("gasClient.Do" + getErr.Error())
 		return
 	}
 	defer res.Body.Close()
 
 	body, readErr := ioutil.ReadAll(res.Body)
 	if readErr != nil {
-		glog.Fatal(readErr)
+		glog.Errorln("ReadAll" + readErr.Error())
 		return
 	}
 
 	gas := gasAPI{}
 	jsonErr := json.Unmarshal(body, &gas)
 	if jsonErr != nil {
-		glog.Fatal(jsonErr)
+		glog.Errorln("Unmarshal" + jsonErr.Error())
 		return
 	}
 
