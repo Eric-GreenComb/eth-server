@@ -97,6 +97,15 @@ func main() {
 		r7.POST("/set", handler.ModifyCallObjValue)
 	}
 
+	r8 := router.Group("/info")
+	{
+		r8.POST("/deploy", handler.DeployInfo)
+		r8.POST("/set_channel", handler.SetInfoChannel)
+		r8.GET("/get_channel/:address", handler.GetInfoChannel)
+		r8.POST("/set", handler.SetInfo)
+		r8.GET("/get/:address", handler.GetInfo)
+	}
+
 	r100 := router.Group("/badger")
 	{
 		r100.POST("/set", handler.SetBadgerKey)
