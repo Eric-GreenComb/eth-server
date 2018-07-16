@@ -49,8 +49,8 @@ type Keystore struct {
 
 // NewKey NewKey
 func (ks *Keystore) NewKey() (*keystore.Key, error) {
-	key, err := ks.newKey(crand.Reader)
-	return key, err
+	_key, err := ks.newKey(crand.Reader)
+	return _key, err
 }
 
 // GenKeystore GenKeystore

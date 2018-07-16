@@ -113,6 +113,12 @@ func main() {
 		r100.GET("/get/:key", handler.GetBadgerKey)
 	}
 
+	r101 := router.Group("/account")
+	{
+		r101.POST("/create/:passphrase", handler.CreateAccount)
+		r101.POST("/bip39/create", handler.CreateBIP39)
+	}
+
 	for _, _port := range config.ServerConfig.Port {
 		server := &http.Server{
 			Addr:         ":" + _port,

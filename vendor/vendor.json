@@ -9,6 +9,18 @@
 			"revisionTime": "2017-07-02T08:40:17Z"
 		},
 		{
+			"checksumSHA1": "LFWkRTcviL/PwMLzMYNlunJlCLY=",
+			"path": "github.com/Eric-GreenComb/go-bip39",
+			"revision": "2af0a847066a4f2669040ccd44a79c8eca10806a",
+			"revisionTime": "2018-07-12T05:40:20Z"
+		},
+		{
+			"checksumSHA1": "2B2iCdqMlYMmzT3a1HiM+8ruVTs=",
+			"path": "github.com/Eric-GreenComb/go-bip39/wordlists",
+			"revision": "2af0a847066a4f2669040ccd44a79c8eca10806a",
+			"revisionTime": "2018-07-12T05:40:20Z"
+		},
+		{
 			"checksumSHA1": "USkefO0g1U9mr+8hagv3fpSkrxg=",
 			"origin": "github.com/ethereum/go-ethereum/vendor/github.com/aristanetworks/goarista/monotime",
 			"path": "github.com/aristanetworks/goarista/monotime",
@@ -21,6 +33,48 @@
 			"path": "github.com/btcsuite/btcd/btcec",
 			"revision": "4e7dc34ff1a7469b95eb16f5b4084c26a0ab3662",
 			"revisionTime": "2018-05-09T08:29:25Z"
+		},
+		{
+			"checksumSHA1": "MaMdEOFamcNkk10Z2IkkUcR7xmk=",
+			"path": "github.com/btcsuite/btcd/chaincfg",
+			"revision": "47885ab8702485be6b6f87a03d4f3be0bc5c982c",
+			"revisionTime": "2017-07-07T21:31:11Z"
+		},
+		{
+			"checksumSHA1": "GmSJfFUhbXmiqjiEMbjKs4knqzA=",
+			"path": "github.com/btcsuite/btcd/chaincfg/chainhash",
+			"revision": "47885ab8702485be6b6f87a03d4f3be0bc5c982c",
+			"revisionTime": "2017-07-07T21:31:11Z"
+		},
+		{
+			"checksumSHA1": "+PI2OHLJFAsq8d1Wj3uOr/8mFY8=",
+			"path": "github.com/btcsuite/btcd/wire",
+			"revision": "47885ab8702485be6b6f87a03d4f3be0bc5c982c",
+			"revisionTime": "2017-07-07T21:31:11Z"
+		},
+		{
+			"checksumSHA1": "IjJ1Z59n48Vh0y463hIiU0bNC3w=",
+			"path": "github.com/btcsuite/btcutil",
+			"revision": "a5ecb5d9547afe8d1672073dbdc348203de744a0",
+			"revisionTime": "2017-04-19T14:14:49Z"
+		},
+		{
+			"checksumSHA1": "P7zGTjLdfC0x295s647Lb4bvHYo=",
+			"path": "github.com/btcsuite/btcutil/base58",
+			"revision": "a5ecb5d9547afe8d1672073dbdc348203de744a0",
+			"revisionTime": "2017-04-19T14:14:49Z"
+		},
+		{
+			"checksumSHA1": "EcjcN/QKZaeG2/zaAIeSMbK+Pzk=",
+			"path": "github.com/btcsuite/btcutil/hdkeychain",
+			"revision": "a5ecb5d9547afe8d1672073dbdc348203de744a0",
+			"revisionTime": "2017-04-19T14:14:49Z"
+		},
+		{
+			"checksumSHA1": "nouk3wFgYJ/blFmKqnwp+DKR1pw=",
+			"path": "github.com/btcsuite/golangcrypto/ripemd160",
+			"revision": "53f62d9b43e87a6c56975cf862af7edf33a8d0df",
+			"revisionTime": "2015-03-04T02:55:08Z"
 		},
 		{
 			"checksumSHA1": "e+iOduiFVgi7aR3exzo+5VbckxY=",

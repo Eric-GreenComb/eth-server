@@ -21,4 +21,6 @@ type FormParams struct {
 	IsWait      string `form:"iswait" json:"iswait"`             //
 	Number      string `form:"number" json:"number"`             //
 	CallAddress string `form:"call_address" json:"call_address"` //
+	Mnemonic    string `form:"mnemonic" json:"mnemonic"`         //
+	Path        string `form:"path" json:"path"`                 //
 }
