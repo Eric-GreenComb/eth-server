@@ -88,6 +88,17 @@ func (ks *Keystore) newKeyFromECDSA(privateKeyECDSA *ecdsa.PrivateKey) *keystore
 	return key
 }
 
+// GenKeyFromECDSA GenKeyFromECDSA
+func (ks *Keystore) GenKeyFromECDSA(privateKeyECDSA *ecdsa.PrivateKey) *keystore.Key {
+	id := uuid.NewRandom()
+	key := &keystore.Key{
+		Id:         id,
+		Address:    crypto.PubkeyToAddress(privateKeyECDSA.PublicKey),
+		PrivateKey: privateKeyECDSA,
+	}
+	return key
+}
+
 // SignTx signs the given transaction with the requested account.
 func (ks *Keystore) SignTx(keyjson []byte, passphrase string, tx *types.Transaction, chainID *big.Int) (*types.Transaction, error) {
 	key, err := keystore.DecryptKey(keyjson, passphrase)

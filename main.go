@@ -117,6 +117,7 @@ func main() {
 	{
 		r101.POST("/create/:passphrase", handler.CreateAccount)
 		r101.POST("/bip39/create", handler.CreateBIP39)
+		r101.POST("/bip39/keystore/create", handler.CreateBIP39Keysore)
 	}
 
 	for _, _port := range config.ServerConfig.Port {

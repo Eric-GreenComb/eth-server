@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
     "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
-    "to":"0x00eaf5c65f32917c922364e4892b5ec5a35baa6e",
+    "to":"0xB5E6201FA756cEfCd03Be3C1094D5De8ad9C4AD0",
     "amount":"1000",
     "decimals":"18",
     "pwd":"a11111"
@@ -46,7 +46,7 @@ Content-Type: application/json
 {
     "address":"0xf1b5846669cd60e5cf766097bf052844727d0f29",
     "from":"0x00eaf5c65f32917c922364e4892b5ec5a35baa6e",
-    "to":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "to":"0xB5E6201FA756cEfCd03Be3C1094D5De8ad9C4AD0",
     "amount":"2000",
     "decimals":"18",
     "pwd":"eric"
@@ -57,7 +57,7 @@ POST http://localhost:8080/erc20/rawtransfer
 Content-Type: application/json
 
 {
-    "address":"0x08445242c84e7750934bac06f33c577979f4d877",
+    "address":"0xf1b5846669cd60e5cf766097bf052844727d0f29",
     "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
     "to":"0xA0B66c847880FF3EA8280463e816Da0713015667",
     "amount":"2000",
@@ -66,7 +66,7 @@ Content-Type: application/json
 }
 
 ###GetErc20Balance /erc20/balance/:conaddr/:addr
-GET http://localhost:8080/erc20/balance/0xf1b5846669cd60e5cf766097bf052844727d0f29/0x00eaf5c65f32917c922364e4892b5ec5a35baa6e
+GET http://localhost:8080/erc20/balance/0xf1b5846669cd60e5cf766097bf052844727d0f29/0xB5E6201FA756cEfCd03Be3C1094D5De8ad9C4AD0
 Content-Type: application/json
 
 {

@@ -20,7 +20,7 @@ POST http://127.0.0.1:8080/tipjar/deposit
 Content-Type: application/json
 
 {
-    "address":"0xc12b01a3a82fb10980512f45bf14fe53c6cd303d",
+    "address":"0x3f04b7967463ed5046150563419b9617a7e468b3",
     "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
     "pwd":"a11111",
     "amount":"20",
@@ -29,7 +29,7 @@ Content-Type: application/json
 }
 
 ###GetTipJarBalance
-GET http://127.0.0.1:8080/tipjar/balance/0xc12b01a3a82fb10980512f45bf14fe53c6cd303d
+GET http://127.0.0.1:8080/tipjar/balance/0x3f04b7967463ed5046150563419b9617a7e468b3
 Content-Type: application/json
 
 {

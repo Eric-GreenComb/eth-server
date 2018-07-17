@@ -27,8 +27,8 @@ POST http://localhost:8080/badger/set
 Content-Type: application/json
 
 {
-    "key":"0x00eaf5c65f32917c922364e4892b5ec5a35baa6e",
-    "value":"{\"id\":\"f33c0bc1-3754-b7eb-bcb8-09ad68281eba\",\"version\":3,\"crypto\":{\"cipher\":\"aes-128-ctr\",\"cipherparams\":{\"iv\":\"f18b8a32024f069def32548bf24843cb\"},\"ciphertext\":\"b6b950e496f50439380e02e342ee666f7e69633880f5829c104898a44e4b5fb7\",\"kdf\":\"pbkdf2\",\"kdfparams\":{\"c\":10240,\"dklen\":32,\"prf\":\"hmac-sha256\",\"salt\":\"ce9a8e487d1249cb76726a4c2d0ba96180a812e3c3257ea2b9c65c4fd5d7341f\"},\"mac\":\"9d111ca1e732fd15e1d85e70a3e76e05fef59e18a1adb9a3f7057cdb3b04a57b\"},\"address\":\"00eaf5c65f32917c922364e4892b5ec5a35baa6e\",\"name\":\"\",\"meta\":\"{}\"}"
+    "key":"0xb5e6201fa756cefcd03be3c1094d5de8ad9c4ad0",
+    "value":"{\"address\":\"b5e6201fa756cefcd03be3c1094d5de8ad9c4ad0\",\"crypto\":{\"cipher\":\"aes-128-ctr\",\"ciphertext\":\"1f5d8c9675ed1663c69ec4822da39e0b0ba2ac700674e4ebdb6ce4c842f519a8\",\"cipherparams\":{\"iv\":\"058f29b14f6a24f2b3a8389c52c127e0\"},\"kdf\":\"scrypt\",\"kdfparams\":{\"dklen\":32,\"n\":2,\"p\":1,\"r\":8,\"salt\":\"731bc89567732fb89cb16849f7fb336d4f859a02474b48999e6c778159931bd2\"},\"mac\":\"54bc559d1f2463faf33ceb57cf1e1255272bcb76e5bd67d29bccb74fcbd30bea\"},\"id\":\"2f155ab3-5218-4c06-bf5b-1791f647ec9e\",\"version\":3}"
 }
 
 ###SetBadgerKey /badger/get/:key
