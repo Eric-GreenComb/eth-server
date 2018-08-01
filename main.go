@@ -106,6 +106,13 @@ func main() {
 		r8.GET("/get/:address", handler.GetInfo)
 	}
 
+	rfomo3d := router.Group("/fomo3d")
+	{
+		rfomo3d.POST("/deploy/team", handler.DeployTeam)
+		rfomo3d.POST("/deploy/playerbook", handler.DeployPlayerBook)
+		rfomo3d.POST("/deploy/f3d", handler.DeployF3d)
+	}
+
 	r100 := router.Group("/badger")
 	{
 		r100.POST("/set", handler.SetBadgerKey)
@@ -118,6 +125,8 @@ func main() {
 		r101.POST("/create/:passphrase", handler.CreateAccount)
 		r101.POST("/bip39/create", handler.CreateBIP39)
 		r101.POST("/bip39/keystore/create", handler.CreateBIP39Keysore)
+
+		r101.POST("/checkpwd/:addr/:passphrase", handler.CheckPassphrase)
 	}
 
 	for _, _port := range config.ServerConfig.Port {

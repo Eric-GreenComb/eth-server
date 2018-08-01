@@ -1,0 +1,91 @@
+
+###health
+GET http://127.0.0.1:8080/health
+Content-Type: application/json
+
+{
+}
+
+###DeployInfo
+POST http://127.0.0.1:8080/fomo3d/deploy/team
+Content-Type: application/json
+
+{
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111"
+}
+
+###playerbook
+POST http://127.0.0.1:8080/fomo3d/deploy/playerbook
+Content-Type: application/json
+
+{
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111"
+}
+
+###f3d
+POST http://127.0.0.1:8080/fomo3d/deploy/f3d
+Content-Type: application/json
+
+{
+    "from":"0x762009cd5dcabb5a125008d70f5efdbdff2aa782",
+    "pwd":"a11111"
+}
+
+### 查询游戏信息 eth_call
+POST https://www.imfomo.com/YKZGQG2QTBx0tiWoB2IF/
+Content-Type: application/json
+
+{
+    "jsonrpc":"2.0",
+    "method":"eth_call",
+    "params":[{
+        "to":"0x51A5271Ec514c3065d9de2D8E95051989f7D53AB", 
+        "data":"0x747dff42"}, 
+        "latest"
+    ],
+    "id":1
+}
+
+### 查询用户信息 eth_call
+POST https://www.imfomo.com/YKZGQG2QTBx0tiWoB2IF/
+Content-Type: application/json
+
+{
+    "jsonrpc":"2.0",
+    "method":"eth_call",
+    "params":[{
+        "to":"0x51A5271Ec514c3065d9de2D8E95051989f7D53AB", 
+        "data":"0xee0b5d8b0000000000000000000000000cF0698955123303a9A36ce470552c8d10EE6198"}, 
+        "latest"
+    ],
+    "id":1
+}
+
+000000000000000000000000000000000000000000000000000000000000000a
+0000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000028cf3bc12b7a1e2e565
+0000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000007200f9d69c72c58
+0000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000de0b6b3a7640000
+
+### 查询用户收益 eth_call
+POST https://www.imfomo.com/YKZGQG2QTBx0tiWoB2IF/
+Content-Type: application/json
+
+{
+    "jsonrpc":"2.0",
+    "method":"eth_call",
+    "params":[{
+        "to":"0x51A5271Ec514c3065d9de2D8E95051989f7D53AB", 
+        "data":"0x63066434000000000000000000000000000000000000000000000000000000000000000a"}, 
+        "latest"
+    ],
+    "id":1
+}
+
+0000000000000000000000000000000000000000000000000000000000000000
+00000000000000000000000000000000000000000000000007200f9d69c72c58
+0000000000000000000000000000000000000000000000000000000000000000

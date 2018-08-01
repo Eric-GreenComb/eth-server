@@ -31,3 +31,10 @@ Content-Type: application/json
     "path":"m/44'/60'/0'/0/0",
     "pwd":"a11111"
 }
+
+###CreateAccount /account/checkpwd/:addr/:passphrase
+POST http://localhost:8080/account/checkpwd/0x0b74d6c3ea2696047af5f1f45616340d1e94b1c7/123
+Content-Type: application/json
+
+{
+}

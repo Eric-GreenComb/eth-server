@@ -1,5 +1,5 @@
 ###web3_clientVersion
-POST http://127.0.0.1:8540
+POST http://10.0.21.112:18545
 Content-Type: application/json
 
 {
@@ -142,13 +142,13 @@ Content-Type: application/json
 }
 
 ###查看账户余额 eth_getBalance
-POST http://127.0.0.1:8540
+POST https://www.imfomo.com/YKZGQG2QTBx0tiWoB2IF/
 Content-Type: application/json
 
 {
     "jsonrpc":"2.0",
     "method":"eth_getBalance",
-    "params":["0x7d382d4229eb8aebbfb9858aa32763b472acf81f","latest"],
+    "params":["0x0cF0698955123303a9A36ce470552c8d10EE6198","latest"],
     "id":67
 }
 

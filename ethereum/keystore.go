@@ -70,6 +70,15 @@ func (ks *Keystore) Update(keyjson []byte, passphrase, newPassphrase string) ([]
 	return _keyjson, err
 }
 
+// CheckPassphrase CheckPassphrase
+func (ks *Keystore) CheckPassphrase(keyjson []byte, passphrase string) (bool, error) {
+	_, err := keystore.DecryptKey(keyjson, passphrase)
+	if err != nil {
+		return false, err
+	}
+	return true, nil
+}
+
 func (ks *Keystore) newKey(rand io.Reader) (*keystore.Key, error) {
 	privateKeyECDSA, err := ecdsa.GenerateKey(crypto.S256(), rand)
 	if err != nil {

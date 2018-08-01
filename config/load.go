@@ -1,16 +1,12 @@
 package config
 
 import (
-	"fmt"
 	"strings"
 
 	"github.com/spf13/viper"
 
 	"github.com/Eric-GreenComb/eth-server/bean"
 )
-
-// DBConfig 数据库相关配置
-var DBConfig bean.DBConfig
 
 // EthereumConfig Ethereum Config
 var EthereumConfig bean.EthereumConfig
@@ -39,16 +35,4 @@ func initConfig() {
 	EthereumConfig.ChainID = viper.GetInt64("ethereum.chainID")
 	EthereumConfig.Host = viper.GetString("ethereum.host")
 	EthereumConfig.Passphrase = viper.GetString("ethereum.passphrase")
-
-	DBConfig.Dialect = viper.GetString("database.dialect")
-	DBConfig.Database = viper.GetString("database.database")
-	DBConfig.User = viper.GetString("database.user")
-	DBConfig.Password = viper.GetString("database.password")
-	DBConfig.Host = viper.GetString("database.host")
-	DBConfig.Port = viper.GetInt("database.port")
-	DBConfig.Charset = viper.GetString("database.charset")
-	DBConfig.MaxIdleConns = viper.GetInt("database.maxIdleConns")
-	DBConfig.MaxOpenConns = viper.GetInt("database.maxOpenConns")
-	DBConfig.URL = fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True&loc=Local",
-		DBConfig.User, DBConfig.Password, DBConfig.Host, DBConfig.Port, DBConfig.Database, DBConfig.Charset)
 }

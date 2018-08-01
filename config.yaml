@@ -16,27 +16,3 @@ ethereum:
   host: http://localhost:8540
   passphrase: tDydrX7ia8Zx6Vwr  # rand
 
-
-###############################################################################
-#
-#    MariaDb Config section
-#
-###############################################################################
-
-database:
-  dialect: mysql
-  database: xserver
-  # database: bookmarker
-  user: root
-  password: yiyun88
-  # 要支持emoji的话，填 utf8mb4
-  charset: utf8mb4
-  # 数据库ip 
-  host: 127.0.0.1
-  # 数据库端口
-  port: 3306
-  # 空闲时最大的连接数
-  maxIdleConns: 20
-  # 最大的连接数
-  maxOpenConns: 20
-
