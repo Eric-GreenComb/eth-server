@@ -41,6 +41,7 @@ func SendEthCoin(c *gin.Context) {
 	_amount := _formParams.Amount
 	_pwd := _formParams.Pwd
 	_decimals := _formParams.Decimals
+	_desc := _formParams.Desc
 
 	_int, err := strconv.Atoi(_decimals)
 	if err != nil {
@@ -70,7 +71,8 @@ func SendEthCoin(c *gin.Context) {
 		return
 	}
 
-	_txid, err := ethereum.SendEthCoins(_to, _nonce, _amountBigInt, _key.PrivateKey, _chainIDBigInt)
+	_inputData := []byte(_desc)
+	_txid, err := ethereum.SendEthCoins(_to, _nonce, _amountBigInt, _key.PrivateKey, _chainIDBigInt, _inputData)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return

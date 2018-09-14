@@ -34,12 +34,12 @@ func NewAddress() *Address {
 }
 
 // SendEthCoins SendEthCoins
-func SendEthCoins(to string, nonce uint64, amountWei *big.Int, priv *ecdsa.PrivateKey, chainID *big.Int) (string, error) {
+func SendEthCoins(to string, nonce uint64, amountWei *big.Int, priv *ecdsa.PrivateKey, chainID *big.Int, data []byte) (string, error) {
 	client := Clients.Eth
 
 	gasPrice := GasPrice()
 
-	tx := types.NewTransaction(nonce, ethcommon.HexToAddress(to), amountWei, gasDefaultLimit, gasPrice, nil)
+	tx := types.NewTransaction(nonce, ethcommon.HexToAddress(to), amountWei, gasDefaultLimit, gasPrice, data)
 
 	var signed *types.Transaction
 	if chainID != nil {
