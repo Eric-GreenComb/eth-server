@@ -19,3 +19,5 @@ abigen --sol team.sol --pkg cc --lang go --out team.go
 abigen --sol playerbook.sol --pkg cc --lang go --out playerbook.go
 
 abigen --sol fomo3d.sol --pkg cc --lang go --out fomo3d.go
+
+abigen --sol gusd.sol --pkg cc --lang go --out gusd.go

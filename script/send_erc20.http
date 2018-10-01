@@ -67,7 +67,7 @@ Content-Type: application/json
 }
 
 ###GetErc20Balance /erc20/balance/:conaddr/:addr
-GET http://localhost:8080/erc20/balance/0xf1b5846669cd60e5cf766097bf052844727d0f29/0xB5E6201FA756cEfCd03Be3C1094D5De8ad9C4AD0
+GET http://localhost:8080/erc20/balance/0xcba8162778e6a3eba60e1cf7c012b327340bd05d/0x47e8426dba3EdDBb3cEC855A2F3E5DB7EaaF5109
 Content-Type: application/json
 
 {

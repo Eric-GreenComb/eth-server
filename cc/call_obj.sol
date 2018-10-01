@@ -7,7 +7,6 @@ contract ObjectInterface {
 contract CallObject {
 
     function ModifyValue(address addrObj,string val) public{
-
         ObjectInterface(addrObj).ModifyValue(val);
     }
 }

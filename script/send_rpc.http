@@ -131,6 +131,17 @@ Content-Type: application/json
 }
 
 ### 查看区块高度 eth_blockNumber
+POST http://localhost:8540
+Content-Type: application/json
+
+{
+    "jsonrpc":"2.0",
+    "method":"eth_getBalance",
+    "params":["0x762009cd5dcabb5a125008d70f5efdbdff2aa782", "latest"],
+    "id":1
+}
+
+### 查看区块高度 eth_blockNumber
 POST https://mainnet.infura.io/1UoO4I
 Content-Type: application/json
 
@@ -170,7 +181,7 @@ Content-Type: application/json
 {
     "jsonrpc":"2.0",
     "method":"eth_getBalance",
-    "params":["0x0cF0698955123303a9A36ce470552c8d10EE6198","latest"],
+    "params":["0x762009cd5dcabb5a125008d70f5efdbdff2aa782","latest"],
     "id":67
 }
 
@@ -207,6 +218,17 @@ Content-Type: application/json
     "id":67
 }
 
+### eth_getTransactionReceipt
+POST http://127.0.0.1:8540
+Content-Type: application/json
+
+{
+    "jsonrpc":"2.0",
+    "method":"eth_getTransactionReceipt",
+    "params":["0x6253daccd5a561012228c092d98c2876cc99ee8f5ff8cf2a06d0ccfdfb619c49"],
+    "id":67
+}
+
 ### eth_getBlockTransactionCountByHash error
 POST https://mainnet.infura.io/1UoO4I
 Content-Type: application/json
@@ -236,7 +258,7 @@ Content-Type: application/json
 {
     "jsonrpc":"2.0",
     "method":"eth_getBlockByNumber",
-    "params":["0x601c91",false],
+    "params":["0x601c91",true],
     "id":67
 }
 
@@ -281,15 +303,15 @@ Content-Type: application/json
 }
 
 ### 查询ERC20代币 eth_call
-POST http://127.0.0.1:8540
+POST https://mainnet.infura.io/1UoO4I
 Content-Type: application/json
 
 {
     "jsonrpc":"2.0",
     "method":"eth_call",
     "params":[{
-        "to":"0xF1B5846669cD60E5CF766097bF052844727d0F29", 
-        "data":"0x70a0823100000000000000000000000000eaF5c65F32917c922364e4892b5EC5A35baa6E"}, 
+        "to":"0xcba8162778e6a3eba60e1cf7c012b327340bd05d", 
+        "data":"0x70a0823100000000000000000000000047e8426dba3eddbb3cec855a2f3e5db7eaaf5109"}, 
         "latest"
     ],
     "id":1
