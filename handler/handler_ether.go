@@ -63,7 +63,7 @@ func SendEthCoin(c *gin.Context) {
 	}
 
 	_amountBigInt := ethereum.StringToWei(_amount, _int)
-	_chainIDBigInt := big.NewInt(config.EthereumConfig.ChainID)
+	_chainIDBigInt := big.NewInt(config.Ethereum.ChainID)
 
 	_nonce, err := ethereum.PendingNonce(_from)
 	if err != nil {

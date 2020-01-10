@@ -2,7 +2,7 @@ package handler
 
 import (
 	"fmt"
-	"io/ioutil"
+	// "io/ioutil"
 	"net/http"
 	"strings"
 
@@ -99,14 +99,25 @@ func CreateBIP39Keysore(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": string(keyjson)})
+	_address := strings.ToLower(_key.Address.String())
+
+	err = badger.NewWrite().Set(_address, keyjson)
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
+		return
+	}
+
+	c.String(http.StatusOK, string(keyjson))
 }
 
 // CheckPassphrase CheckPassphrase
 func CheckPassphrase(c *gin.Context) {
 
-	_addr := c.Params.ByName("addr")
-	_passphrase := c.Params.ByName("passphrase")
+	var _formParams bean.FormParams
+	c.ShouldBindJSON(&_formParams)
+
+	_addr := _formParams.Address
+	_passphrase := _formParams.Pwd
 	fmt.Println(_addr)
 	fmt.Println(_passphrase)
 
@@ -116,18 +127,19 @@ func CheckPassphrase(c *gin.Context) {
 		return
 	}
 
-	_keystore := strings.Replace(string(_value), "\\\"", "\"", -1)
-	fmt.Println(_keystore)
+	// fmt.Println(string(_value))
+	// _keystore := strings.Replace(string(_value), "\\\"", "\"", -1)
+	// fmt.Println(_keystore)
 
-	keyin := strings.NewReader(_keystore)
+	// keyin := strings.NewReader(_keystore)
 
-	json, err := ioutil.ReadAll(keyin)
-	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
-		return
-	}
+	// json, err := ioutil.ReadAll(keyin)
+	// if err != nil {
+	// 	c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
+	// 	return
+	// }
 
-	_isTrue, err := ethereum.Ks.CheckPassphrase(json, _passphrase)
+	_isTrue, err := ethereum.Ks.CheckPassphrase(_value, _passphrase)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return

@@ -182,7 +182,7 @@ func RawTransferErc20(c *gin.Context) {
 	}
 
 	_amountBigInt := ethereum.StringToWei(_amount, _int)
-	_chainIDBigInt := big.NewInt(config.EthereumConfig.ChainID)
+	_chainIDBigInt := big.NewInt(config.Ethereum.ChainID)
 
 	_nonce, err := ethereum.PendingNonce(_from)
 	if err != nil {
@@ -219,5 +219,6 @@ func GetErc20Balance(c *gin.Context) {
 		c.String(http.StatusOK, err.Error())
 		return
 	}
+
 	c.JSON(http.StatusOK, _bigint.String())
 }

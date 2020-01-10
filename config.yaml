@@ -4,7 +4,7 @@
 #
 ###############################################################################
 server:
-  port: 8080,8081,8082,8083
+  port: 4000
   mode: debug  # debug;release
   gorm:
     LogMode: false # db log
@@ -13,8 +13,9 @@ server:
   
 ethereum:
   # chainID: 12759
-  # host: http://localhost:8540
+  host: http://localhost:8545
   chainID: 1
-  host: https://mainnet.infura.io/1UoO4I
+  # host: https://mainnet.infura.io/1UoO4I
+  # host: "https://mainnet.infura.io/v3/2494f3770d29414cb47c7288c2ba3fd2"
   passphrase: tDydrX7ia8Zx6Vwr  # rand
 

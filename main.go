@@ -127,7 +127,7 @@ func main() {
 		r101.POST("/bip39/create", handler.CreateBIP39)
 		r101.POST("/bip39/keystore/create", handler.CreateBIP39Keysore)
 
-		r101.POST("/checkpwd/:addr/:passphrase", handler.CheckPassphrase)
+		r101.POST("/checkpwd", handler.CheckPassphrase)
 	}
 
 	for _, _port := range config.ServerConfig.Port {

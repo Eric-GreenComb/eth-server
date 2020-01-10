@@ -8,8 +8,8 @@ import (
 	"github.com/Eric-GreenComb/eth-server/bean"
 )
 
-// EthereumConfig Ethereum Config
-var EthereumConfig bean.EthereumConfig
+// Ethereum Ethereum Config
+var Ethereum bean.EthereumConfig
 
 // ServerConfig Server Config
 var ServerConfig bean.ServerConfig
@@ -32,7 +32,7 @@ func initConfig() {
 	ServerConfig.GormLogMode = viper.GetString("server.gorm.LogMode")
 	ServerConfig.ViewLimit = viper.GetInt("server.view.limit")
 
-	EthereumConfig.ChainID = viper.GetInt64("ethereum.chainID")
-	EthereumConfig.Host = viper.GetString("ethereum.host")
-	EthereumConfig.Passphrase = viper.GetString("ethereum.passphrase")
+	Ethereum.ChainID = viper.GetInt64("ethereum.chainID")
+	Ethereum.Host = viper.GetString("ethereum.host")
+	Ethereum.Passphrase = viper.GetString("ethereum.passphrase")
 }

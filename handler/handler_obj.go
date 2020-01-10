@@ -142,7 +142,7 @@ func RawModifyObjValue(c *gin.Context) {
 		return
 	}
 
-	_chainIDBigInt := big.NewInt(config.EthereumConfig.ChainID)
+	_chainIDBigInt := big.NewInt(config.Ethereum.ChainID)
 
 	_txid, err := ethereum.SetObjValue(_conaddr, _inputData, _nonce, _key.PrivateKey, _chainIDBigInt)
 
