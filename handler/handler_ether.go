@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"context"
 	"fmt"
 	"math/big"
 	"net/http"
@@ -8,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/keystore"
+	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/gin-gonic/gin"
 
 	"github.com/Eric-GreenComb/eth-server/badger"
@@ -82,6 +84,23 @@ func SendEthCoin(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"errcode": 0, "msg": _txid})
 }
 
+// GetChainID GetChainID
+func GetChainID(c *gin.Context) {
+
+	_client := ethclient.NewClient(ethereum.Clients.Eth)
+	_ctx := context.Background()
+	_chainid, err := _client.NetworkID(_ctx)
+	if err != nil {
+		fmt.Println("NetworkID error", err.Error())
+	} else {
+		fmt.Println(_chainid)
+	}
+
+	defer _client.Close()
+
+	c.JSON(http.StatusOK, gin.H{"errcode": 0, "ChainID": _chainid})
+}
+
 // GetBalance GetBalance
 func GetBalance(c *gin.Context) {
 
@@ -96,7 +115,6 @@ func GetBalance(c *gin.Context) {
 
 	n := new(big.Int)
 	m := new(big.Int)
-	// k := big.NewInt(1000000000000)
 	k := big.NewInt(1000000000000)
 	n, ok := n.SetString(Remove0x(_ethCoin), 16)
 	var _balance int64
@@ -107,6 +125,7 @@ func GetBalance(c *gin.Context) {
 		_balance = m.Div(n, k).Int64()
 	}
 	fmt.Println("balance", _balance)
+
 	c.JSON(http.StatusOK, gin.H{"errcode": 0, "hex": _ethCoin, "balance": n})
 }
 

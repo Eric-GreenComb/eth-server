@@ -66,9 +66,14 @@ func DeployErc20(c *gin.Context) {
 
 	_totalBigInt := ethereum.StringToWei(_total, _int)
 
+	var _keyChainid interface{}
+	_keyChainid = "chainid"
+	txOpt.Context = context.WithValue(context.Background(), _keyChainid, config.Ethereum.ChainID)
+	fmt.Println(txOpt.Context.Value("chainid").(int64))
+
 	_tokenAddress, _tx, _token, err := cc.DeployHumanStandardToken(txOpt, _client, _totalBigInt, _name, uint8(_int), _symbol)
 	if err != nil {
-		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
+		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error(), "err": "DeployHumanStandardToken"})
 		return
 	}
 
@@ -140,6 +145,11 @@ func TransferErc20(c *gin.Context) {
 	ts, _ := cc.NewHumanStandardTokenTransactor(common.HexToAddress(_conaddr), _client)
 
 	_amountBigInt := ethereum.StringToWei(_amount, _int)
+
+	var _keyChainid interface{}
+	_keyChainid = "chainid"
+	txOpt.Context = context.WithValue(context.Background(), _keyChainid, config.Ethereum.ChainID)
+	fmt.Println(txOpt.Context.Value("chainid").(int64))
 	_tx, err := ts.Transfer(txOpt, common.HexToAddress(_to), _amountBigInt)
 	if err != nil {
 		c.String(http.StatusOK, err.Error())

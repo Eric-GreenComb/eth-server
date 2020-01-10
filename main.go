@@ -44,8 +44,8 @@ func main() {
 	// api
 	r1 := router.Group("/ethereum")
 	{
+		r1.GET("/chainid", handler.GetChainID)
 		r1.GET("/nonce", handler.PendingNonce)
-
 		r1.POST("/send", handler.SendEthCoin)
 		r1.GET("/balance/:addr", handler.GetBalance)
 
