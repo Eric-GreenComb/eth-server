@@ -8,7 +8,7 @@ import (
 	"github.com/ethereum/go-ethereum/rpc"
 	"github.com/golang/glog"
 
-	"github.com/unionactive/u-ray/config"
+	"github.com/Eric-GreenComb/eth-server/config"
 )
 
 // Clients global client connection
@@ -22,10 +22,10 @@ type Conn struct {
 // Init 初始化各种链接
 // TODO 维护多个连接池（每个链考虑多个节点)
 func Init() error {
-	fmt.Println(">>>>>>>>> start dial ethereum >>>>>>>>>>>")
+	fmt.Println(">>>>>>>>> start dial ethereum >>>>>>>>>>>", config.Ethereum.Host)
 	eth, err := rpc.Dial(config.Ethereum.Host)
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println("dial ethereum error:", err.Error())
 		return err
 	}
 

@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"math/big"
 	"net/http"
 	"strconv"
@@ -93,7 +94,31 @@ func GetBalance(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"errcode": 0, "msg": _ethCoin})
+	n := new(big.Int)
+	m := new(big.Int)
+	// k := big.NewInt(1000000000000)
+	k := big.NewInt(1000000000000)
+	n, ok := n.SetString(Remove0x(_ethCoin), 16)
+	var _balance int64
+	if !ok {
+		fmt.Println("SetString: error")
+		_balance = 0
+	} else {
+		_balance = m.Div(n, k).Int64()
+	}
+	fmt.Println("balance", _balance)
+	c.JSON(http.StatusOK, gin.H{"errcode": 0, "hex": _ethCoin, "balance": n})
+}
+
+// Remove0x Remove0x
+func Remove0x(s string) string {
+	if len(s) < 2 {
+		return s
+	}
+	if s[0:2] == "0x" || s[0:2] == "0X" {
+		return s[2:]
+	}
+	return s
 }
 
 // StringToWei StringToWei
