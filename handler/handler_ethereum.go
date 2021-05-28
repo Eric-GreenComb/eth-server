@@ -20,10 +20,10 @@ import (
 // PendingNonce PendingNonce
 func PendingNonce(c *gin.Context) {
 
-	var _formParams bean.FormParams
-	c.BindJSON(&_formParams)
+	var _params bean.FormParams
+	c.BindJSON(&_params)
 
-	_nonce, err := ethereum.PendingNonce(_formParams.Params)
+	_nonce, err := ethereum.PendingNonce(_params.Address)
 
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
