@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	ethcommon "github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rlp"
 )
@@ -95,7 +96,7 @@ func SendEthTokens(address, to string, nonce uint64, amount *big.Int, priv *ecds
 	}
 
 	txID := &ethcommon.Hash{}
-	err = client.Call(&txID, "eth_sendRawTransaction", ethcommon.ToHex(txData))
+	err = client.Call(&txID, "eth_sendRawTransaction", hexutil.Encode(txData))
 	if err != nil {
 		return "", err
 	}

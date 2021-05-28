@@ -5,6 +5,7 @@ import (
 	"math/big"
 
 	ethcommon "github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/rlp"
 )
@@ -31,7 +32,7 @@ func SetObjValue(address string, inputData []byte, nonce uint64, priv *ecdsa.Pri
 	}
 
 	txID := &ethcommon.Hash{}
-	err = client.Call(&txID, "eth_sendRawTransaction", ethcommon.ToHex(txData))
+	err = client.Call(&txID, "eth_sendRawTransaction", hexutil.Encode(txData))
 	if err != nil {
 		return "", err
 	}

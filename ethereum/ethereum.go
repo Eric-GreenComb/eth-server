@@ -6,6 +6,7 @@ import (
 	"math/big"
 
 	ethcommon "github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/rlp"
@@ -54,7 +55,7 @@ func SendEthCoins(to string, nonce uint64, amountWei *big.Int, priv *ecdsa.Priva
 	}
 
 	txID := &ethcommon.Hash{}
-	err = client.Call(&txID, "eth_sendRawTransaction", ethcommon.ToHex(data))
+	err = client.Call(&txID, "eth_sendRawTransaction", hexutil.Encode(data))
 	if err != nil {
 		return "", err
 	}

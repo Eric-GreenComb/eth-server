@@ -9,7 +9,7 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/pborman/uuid"
+	"github.com/google/uuid"
 )
 
 const (
@@ -88,7 +88,7 @@ func (ks *Keystore) newKey(rand io.Reader) (*keystore.Key, error) {
 }
 
 func (ks *Keystore) newKeyFromECDSA(privateKeyECDSA *ecdsa.PrivateKey) *keystore.Key {
-	id := uuid.NewRandom()
+	id, _ := uuid.NewRandom()
 	key := &keystore.Key{
 		Id:         id,
 		Address:    crypto.PubkeyToAddress(privateKeyECDSA.PublicKey),
@@ -99,7 +99,7 @@ func (ks *Keystore) newKeyFromECDSA(privateKeyECDSA *ecdsa.PrivateKey) *keystore
 
 // GenKeyFromECDSA GenKeyFromECDSA
 func (ks *Keystore) GenKeyFromECDSA(privateKeyECDSA *ecdsa.PrivateKey) *keystore.Key {
-	id := uuid.NewRandom()
+	id, _ := uuid.NewRandom()
 	key := &keystore.Key{
 		Id:         id,
 		Address:    crypto.PubkeyToAddress(privateKeyECDSA.PublicKey),

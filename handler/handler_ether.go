@@ -6,14 +6,13 @@ import (
 	"math/big"
 	"net/http"
 	"strconv"
-	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/gin-gonic/gin"
 
-	"github.com/Eric-GreenComb/eth-server/badger"
 	"github.com/Eric-GreenComb/eth-server/bean"
+	"github.com/Eric-GreenComb/eth-server/cached"
 	"github.com/Eric-GreenComb/eth-server/config"
 	"github.com/Eric-GreenComb/eth-server/ethereum"
 )
@@ -51,15 +50,13 @@ func SendEthCoin(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 	}
 
-	_value, err := badger.NewRead().Get(_from)
+	_value, err := cached.Manager.Get("eth.account." + _from)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return
 	}
 
-	var _keystore string
-	_keystore = strings.Replace(string(_value), "\\\"", "\"", -1)
-	_key, err := keystore.DecryptKey([]byte(_keystore), _pwd)
+	_key, err := keystore.DecryptKey(_value.([]byte), _pwd)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return
