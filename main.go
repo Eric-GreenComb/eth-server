@@ -43,6 +43,8 @@ func main() {
 
 	myrouter.SetupEthereumRouter(router)
 
+	myrouter.SetupSmartContractRouter(router)
+
 	for _, _port := range config.ServerConfig.Port {
 		server := &http.Server{
 			Addr:         ":" + _port,

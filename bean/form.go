@@ -23,4 +23,5 @@ type FormParams struct {
 	CallAddress string `form:"call_address" json:"call_address"` //
 	Mnemonic    string `form:"mnemonic" json:"mnemonic"`         //
 	Path        string `form:"path" json:"path"`                 //
+	Int64       int64  `form:"int64" json:"int64"`
 }

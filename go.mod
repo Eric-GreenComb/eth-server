@@ -24,4 +24,5 @@ require (
 	github.com/pborman/uuid v1.2.1
 	github.com/shopspring/decimal v1.2.0
 	github.com/spf13/viper v1.7.1
+	gitlab.com/NebulousLabs/Sia v1.5.6
 )

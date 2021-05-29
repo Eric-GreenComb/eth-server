@@ -6,6 +6,7 @@ import (
 	"math/big"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/ethereum/go-ethereum/accounts/keystore"
 	"github.com/ethereum/go-ethereum/ethclient"
@@ -56,7 +57,8 @@ func SendEthCoin(c *gin.Context) {
 		return
 	}
 
-	_key, err := keystore.DecryptKey(_value.([]byte), _pwd)
+	_keystore := strings.Replace(_value.(string), "\\\"", "\"", -1)
+	_key, err := keystore.DecryptKey([]byte(_keystore), _pwd)
 	if err != nil {
 		c.JSON(http.StatusOK, gin.H{"errcode": 1, "msg": err.Error()})
 		return
