@@ -10,16 +10,17 @@ import (
 	"github.com/ethereum/go-ethereum/rlp"
 )
 
-// SetObjValue SetObjValue
-func SetObjValue(address string, inputData []byte, nonce uint64, priv *ecdsa.PrivateKey, chainID *big.Int) (string, error) {
-	client := Clients.Eth
-	var err error
+// SendRawTransaction SendRawTransaction
+func SendRawTransaction(address string, inputData []byte, nonce uint64, priv *ecdsa.PrivateKey, chainID, gasPrice *big.Int) (string, error) {
 
-	gasPrice := GasPrice()
+	client := Clients.Eth
+
+	var err error
 
 	tx := types.NewTransaction(nonce, ethcommon.HexToAddress(address), nil, gasDefaultLimit, gasPrice, []byte(inputData))
 
 	var signed *types.Transaction
+
 	if chainID != nil {
 		signed, _ = types.SignTx(tx, types.NewEIP155Signer(chainID), priv)
 	} else {

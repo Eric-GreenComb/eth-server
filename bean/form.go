@@ -24,4 +24,5 @@ type FormParams struct {
 	Mnemonic    string `form:"mnemonic" json:"mnemonic"`         //
 	Path        string `form:"path" json:"path"`                 //
 	Int64       int64  `form:"int64" json:"int64"`
+	Nonce       int64  `form:"nonce" json:"nonce"`
 }

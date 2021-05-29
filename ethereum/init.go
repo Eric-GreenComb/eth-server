@@ -3,7 +3,7 @@ package ethereum
 import (
 	"fmt"
 	"sync/atomic"
-	"time"
+	// "time"
 
 	"github.com/ethereum/go-ethereum/rpc"
 	"github.com/golang/glog"
@@ -34,7 +34,7 @@ func Init() error {
 	Clients.Eth = eth
 
 	// initNonceAt()
-	go Forever(suggestGasPrice, 3*time.Minute)
+	// go Forever(suggestGasPrice, 3*time.Minute)
 
 	return nil
 }
